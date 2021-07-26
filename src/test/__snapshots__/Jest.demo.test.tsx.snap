@@ -1,0 +1,624 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component: item-control-number rendered 1`] = `
+<PropertyProvider>
+  <IcnClass>
+    <div
+      className="grid-row grid-gap-1"
+    >
+      <div
+        className="tablet:grid-col-3"
+      >
+        <AacCode>
+          <PPMSInput
+            id="aac-code"
+            inputType="text"
+            isDisabled={false}
+            isInvalid={false}
+            isRequired={true}
+            isValid={false}
+            label="AAC CODE"
+            maxLength={6}
+            name="aacCode"
+            onBlur={[Function]}
+            onChange={[Function]}
+            validationMessage="Is Required"
+            value=""
+          >
+            <PPMSFormGroup
+              error={false}
+              id="formGroup-aac-code"
+            >
+              <div
+                className="usa-form-group"
+                data-testid="formGroup"
+                id="formGroup-aac-code"
+              >
+                <PPMSLabel
+                  hint=""
+                  htmlFor="aac-code"
+                >
+                  <label
+                    className="usa-label"
+                    data-testid="label"
+                    htmlFor="aac-code"
+                  >
+                     
+                    AAC CODE
+                     
+                     
+                  </label>
+                </PPMSLabel>
+                <PPMSTextInput
+                  autoComplete="off"
+                  disabled={false}
+                  id="aac-code"
+                  inputRef={
+                    Object {
+                      "current": <input
+                        autocomplete="off"
+                        class="usa-input"
+                        data-testid="textInput"
+                        id="aac-code"
+                        maxlength="6"
+                        name="aacCode"
+                        required=""
+                        type="text"
+                        value=""
+                      />,
+                    }
+                  }
+                  maxLength={6}
+                  name="aacCode"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  required={true}
+                  type="text"
+                  validationStatus=""
+                  value=""
+                >
+                  <input
+                    autoComplete="off"
+                    className="usa-input"
+                    data-testid="textInput"
+                    disabled={false}
+                    id="aac-code"
+                    key="key-aac-code"
+                    maxLength={6}
+                    name="aacCode"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    required={true}
+                    type="text"
+                    value=""
+                  />
+                </PPMSTextInput>
+              </div>
+            </PPMSFormGroup>
+          </PPMSInput>
+        </AacCode>
+      </div>
+      <div
+        className="tablet:grid-col-3"
+      >
+        <PPMSInput
+          id="julian-date"
+          inputType="text"
+          isDisabled={true}
+          isInvalid={false}
+          isRequired={true}
+          isValid={true}
+          label="Julian date"
+          maxLength={4}
+          name="julianDate"
+          onChange={[Function]}
+          validationMessage="Is Required"
+          value="1028"
+        >
+          <PPMSFormGroup
+            error={false}
+            id="formGroup-julian-date"
+          >
+            <div
+              className="usa-form-group"
+              data-testid="formGroup"
+              id="formGroup-julian-date"
+            >
+              <PPMSLabel
+                hint=""
+                htmlFor="julian-date"
+              >
+                <label
+                  className="usa-label"
+                  data-testid="label"
+                  htmlFor="julian-date"
+                >
+                   
+                  Julian date
+                   
+                   
+                </label>
+              </PPMSLabel>
+              <PPMSTextInput
+                autoComplete="off"
+                disabled={true}
+                id="julian-date"
+                inputRef={
+                  Object {
+                    "current": <input
+                      autocomplete="off"
+                      class="usa-input"
+                      data-testid="textInput"
+                      disabled=""
+                      id="julian-date"
+                      maxlength="4"
+                      name="julianDate"
+                      required=""
+                      type="text"
+                      value="1028"
+                    />,
+                  }
+                }
+                maxLength={4}
+                name="julianDate"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                validationStatus=""
+                value="1028"
+              >
+                <input
+                  autoComplete="off"
+                  className="usa-input"
+                  data-testid="textInput"
+                  disabled={true}
+                  id="julian-date"
+                  key="key-julian-date"
+                  maxLength={4}
+                  name="julianDate"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  required={true}
+                  type="text"
+                  value="1028"
+                />
+              </PPMSTextInput>
+            </div>
+          </PPMSFormGroup>
+        </PPMSInput>
+      </div>
+      <div
+        className="tablet:grid-col-3"
+      >
+        <PPMSInput
+          id="serial-number"
+          inputType="text"
+          isDisabled={false}
+          isInvalid={false}
+          isRequired={true}
+          isValid={false}
+          label="Serial Number"
+          maxLength={4}
+          name="serialNum"
+          onBlur={[Function]}
+          onChange={[Function]}
+          validationMessage="Is Required"
+          value=""
+        >
+          <PPMSFormGroup
+            error={false}
+            id="formGroup-serial-number"
+          >
+            <div
+              className="usa-form-group"
+              data-testid="formGroup"
+              id="formGroup-serial-number"
+            >
+              <PPMSLabel
+                hint=""
+                htmlFor="serial-number"
+              >
+                <label
+                  className="usa-label"
+                  data-testid="label"
+                  htmlFor="serial-number"
+                >
+                   
+                  Serial Number
+                   
+                   
+                </label>
+              </PPMSLabel>
+              <PPMSTextInput
+                autoComplete="off"
+                disabled={false}
+                id="serial-number"
+                inputRef={
+                  Object {
+                    "current": <input
+                      autocomplete="off"
+                      class="usa-input"
+                      data-testid="textInput"
+                      id="serial-number"
+                      maxlength="4"
+                      name="serialNum"
+                      required=""
+                      type="text"
+                      value=""
+                    />,
+                  }
+                }
+                maxLength={4}
+                name="serialNum"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                validationStatus=""
+                value=""
+              >
+                <input
+                  autoComplete="off"
+                  className="usa-input"
+                  data-testid="textInput"
+                  disabled={false}
+                  id="serial-number"
+                  key="key-serial-number"
+                  maxLength={4}
+                  name="serialNum"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  required={true}
+                  type="text"
+                  value=""
+                />
+              </PPMSTextInput>
+            </div>
+          </PPMSFormGroup>
+        </PPMSInput>
+      </div>
+      <div
+        className="tablet:grid-col-3"
+      >
+        <PPMSInput
+          id="suffix"
+          inputType="text"
+          isDisabled={false}
+          isInvalid={false}
+          isRequired={false}
+          isValid={false}
+          label="Suffix"
+          maxLength={1}
+          name="suffix"
+          onBlur={[Function]}
+          onChange={[Function]}
+          validationMessage="Suffix cannot have special characters"
+          value=""
+        >
+          <PPMSFormGroup
+            error={false}
+            id="formGroup-suffix"
+          >
+            <div
+              className="usa-form-group"
+              data-testid="formGroup"
+              id="formGroup-suffix"
+            >
+              <PPMSLabel
+                hint="(Optional)"
+                htmlFor="suffix"
+              >
+                <label
+                  className="usa-label"
+                  data-testid="label"
+                  htmlFor="suffix"
+                >
+                   
+                  Suffix
+                   
+                   
+                  <span
+                    className="usa-hint"
+                  >
+                     
+                    (Optional)
+                     
+                  </span>
+                </label>
+              </PPMSLabel>
+              <PPMSTextInput
+                autoComplete="off"
+                disabled={false}
+                id="suffix"
+                inputRef={
+                  Object {
+                    "current": <input
+                      autocomplete="off"
+                      class="usa-input"
+                      data-testid="textInput"
+                      id="suffix"
+                      maxlength="1"
+                      name="suffix"
+                      type="text"
+                      value=""
+                    />,
+                  }
+                }
+                maxLength={1}
+                name="suffix"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={false}
+                type="text"
+                validationStatus=""
+                value=""
+              >
+                <input
+                  autoComplete="off"
+                  className="usa-input"
+                  data-testid="textInput"
+                  disabled={false}
+                  id="suffix"
+                  key="key-suffix"
+                  maxLength={1}
+                  name="suffix"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  required={false}
+                  type="text"
+                  value=""
+                />
+              </PPMSTextInput>
+            </div>
+          </PPMSFormGroup>
+        </PPMSInput>
+      </div>
+    </div>
+    <div
+      className="grid-row update-buttons"
+    >
+      <div
+        className="tablet:grid-col-4"
+      >
+        <PPMSTooltip
+          id="confirm-icn"
+          placement="right"
+          tooltipContent="ICN cannot be changed once confirmed."
+          trigger="focus"
+          triggerSource={
+            <button
+              className="usa-button"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Confirm ICN
+            </button>
+          }
+        >
+          <OverlayTrigger
+            defaultShow={false}
+            key="confirm-icn"
+            overlay={
+              <ForwardRef
+                id="ppms-tooltip-confirm-icn"
+                placement="right"
+              >
+                ICN cannot be changed once confirmed.
+              </ForwardRef>
+            }
+            placement="right"
+            trigger={
+              Array [
+                "hover",
+                "focus",
+              ]
+            }
+          >
+            <RefHolder>
+              <button
+                className="usa-button"
+                disabled={false}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+                type="button"
+              >
+                Confirm ICN
+              </button>
+            </RefHolder>
+            <Overlay
+              flip={false}
+              onHide={[Function]}
+              placement="right"
+              popperConfig={Object {}}
+              rootClose={false}
+              show={false}
+              target={[Function]}
+              transition={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "defaultProps": Object {
+                    "appear": false,
+                    "in": false,
+                    "mountOnEnter": false,
+                    "timeout": 300,
+                    "unmountOnExit": false,
+                  },
+                  "displayName": "Fade",
+                  "render": [Function],
+                }
+              }
+            >
+              <Overlay
+                flip={false}
+                onHide={[Function]}
+                placement="right"
+                popperConfig={
+                  Object {
+                    "modifiers": Array [
+                      Object {
+                        "name": "offset",
+                        "options": Object {
+                          "offset": [Function],
+                        },
+                      },
+                      Object {
+                        "effect": [Function],
+                        "enabled": true,
+                        "name": "popoverArrowMargins",
+                        "phase": "main",
+                        "requiresIfExists": Array [
+                          "arrow",
+                        ],
+                      },
+                    ],
+                  }
+                }
+                rootClose={false}
+                show={false}
+                target={[Function]}
+                transition={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "defaultProps": Object {
+                      "appear": false,
+                      "in": false,
+                      "mountOnEnter": false,
+                      "timeout": 300,
+                      "unmountOnExit": false,
+                    },
+                    "displayName": "Fade",
+                    "render": [Function],
+                  }
+                }
+              />
+            </Overlay>
+          </OverlayTrigger>
+        </PPMSTooltip>
+      </div>
+      <div
+        className="tablet:grid-col-8"
+      >
+        <PPMSAlert
+          alertBody=""
+          alertClassName="email-verification-error"
+          alertKey="email-verification-error"
+          alertVariant="danger"
+          id="icn-verification-danger-msg"
+          show={false}
+        >
+          <Alert
+            className="usa-alert usa-alert--error "
+            closeLabel="Close alert"
+            id="icn-verification-danger-msg"
+            key="email-verification-error"
+            show={false}
+            transition={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "defaultProps": Object {
+                  "appear": false,
+                  "in": false,
+                  "mountOnEnter": false,
+                  "timeout": 300,
+                  "unmountOnExit": false,
+                },
+                "displayName": "Fade",
+                "render": [Function],
+              }
+            }
+          >
+            <Fade
+              appear={false}
+              id="icn-verification-danger-msg"
+              in={false}
+              mountOnEnter={false}
+              timeout={300}
+              unmountOnExit={true}
+            >
+              <Transition
+                addEndListener={[Function]}
+                appear={false}
+                enter={true}
+                exit={true}
+                id="icn-verification-danger-msg"
+                in={false}
+                mountOnEnter={false}
+                onEnter={[Function]}
+                onEntered={[Function]}
+                onEntering={[Function]}
+                onExit={[Function]}
+                onExited={[Function]}
+                onExiting={[Function]}
+                timeout={300}
+                unmountOnExit={true}
+              />
+            </Fade>
+          </Alert>
+        </PPMSAlert>
+        <PPMSAlert
+          alertBody=""
+          alertClassName="email-verification-error"
+          alertKey="email-verification-error"
+          alertVariant="success"
+          id="icn-verification-success-msg"
+          show={false}
+        >
+          <Alert
+            className="usa-alert usa-alert--success "
+            closeLabel="Close alert"
+            id="icn-verification-success-msg"
+            key="email-verification-error"
+            show={false}
+            transition={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "defaultProps": Object {
+                  "appear": false,
+                  "in": false,
+                  "mountOnEnter": false,
+                  "timeout": 300,
+                  "unmountOnExit": false,
+                },
+                "displayName": "Fade",
+                "render": [Function],
+              }
+            }
+          >
+            <Fade
+              appear={false}
+              id="icn-verification-success-msg"
+              in={false}
+              mountOnEnter={false}
+              timeout={300}
+              unmountOnExit={true}
+            >
+              <Transition
+                addEndListener={[Function]}
+                appear={false}
+                enter={true}
+                exit={true}
+                id="icn-verification-success-msg"
+                in={false}
+                mountOnEnter={false}
+                onEnter={[Function]}
+                onEntered={[Function]}
+                onEntering={[Function]}
+                onExit={[Function]}
+                onExited={[Function]}
+                onExiting={[Function]}
+                timeout={300}
+                unmountOnExit={true}
+              />
+            </Fade>
+          </Alert>
+        </PPMSAlert>
+      </div>
+    </div>
+  </IcnClass>
+</PropertyProvider>
+`;

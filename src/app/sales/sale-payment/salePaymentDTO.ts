@@ -1,0 +1,28 @@
+export interface SalePaymentDTO{
+    contractNumber:string;
+    vin:string;
+    companyName:string;
+    firstName:string;
+    lastName:string;
+    emailAddress:string;
+    phoneNumber:string;
+    totalPurchasePrice:string;
+    pendingAmountDue:string;
+    otherModeOfPayment:boolean;
+    paymentDescription:string;
+    amount:string;
+    primaryCardHolderName:string;
+    primaryCreditCardNumber:string;
+    primaryCardType:string;
+    primaryExpirationDate:string;
+    primaryCvv:string;
+    primaryAmount:string;
+    primaryStatus:string;
+    secondaryCardHolderName:string;
+    secondaryCreditCardNumber:string;
+    secondaryCardType:string;
+    secondaryExpirationDate:string;
+    secondaryCvv:string;
+    secondaryAmount:string;
+    secondaryStatus:string;
+}

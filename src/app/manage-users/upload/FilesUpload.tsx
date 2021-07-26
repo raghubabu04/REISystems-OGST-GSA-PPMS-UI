@@ -1,0 +1,377 @@
+import React from "react";
+import { CommonApiService } from "../../../api-kit/common/common-api.service";
+import { PPMSDropZone } from "../../../ui-kit/components/common/upload/PPMS-dropzone";
+import { Environment } from "../../../environments/environment";
+import { InventoryApiService } from "../../../api-kit/property/inventory-api-service";
+import { LEAApiService } from "../../../api-kit/property/lea-api-service";
+import { leaDocumentInfoTip } from "../../../app/property/allocate-property/Constants";
+
+export interface LEAFileUploadProps {
+  type: any;
+  filesLimit: number;
+  updateAlert: any;
+  userId: string;
+  files: any[];
+  maxFileSize: number;
+  triggerDrop: any;
+  updateFilesList: any;
+  setFileUpload?: any;
+  id?: any;
+  documentTypes?: any;
+  documentTypesChange?: any;
+  disabledAttachmentList?: any[];
+  downloadDisabled?: boolean;
+  actionDisabled?: boolean;
+}
+
+export interface LEAFileUploadState {
+  files: any[];
+  type: any;
+  filesSelectedToDelete: any[];
+  checkedItems: Map<any, any>;
+  editItems: Map<any, any>;
+  loadingRows: any[];
+  src: string;
+  rotateSrc: string;
+  originalSrc: string;
+  loadingImage: boolean;
+  documentTypes?: any;
+}
+
+export class FilesUpload extends React.Component<
+  LEAFileUploadProps,
+  LEAFileUploadState
+> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      files: this.props.files,
+      filesSelectedToDelete: [],
+      checkedItems: new Map(),
+      editItems: new Map(),
+      loadingRows: [],
+      src: "",
+      originalSrc: "",
+      rotateSrc: "",
+      loadingImage: false,
+      type: this.props.type === "documents" ? this.documents : [],
+      documentTypes: this.props.documentTypes,
+    };
+  }
+
+  componentDidUpdate(
+    prevProps: Readonly<LEAFileUploadProps>,
+    prevState: Readonly<LEAFileUploadState>,
+    snapshot?: any
+  ): void {
+    if (this.props.files !== prevProps.files) {
+      this.setState({
+        files: this.props.files,
+      });
+      this.props.files.forEach((file) => {
+        file["placeholder"] = file.name;
+        file["priority"] = file.attachmentOrder;
+        file["downloadUrl"] = file.uri;
+        file["type"] = file.type || file.itemType;
+      });
+    }
+  }
+
+  private leaApiService: LEAApiService = new LEAApiService();
+  private commonAPIService: CommonApiService = new CommonApiService();
+  documents = "";
+
+  onDrop = (file, index) => {
+    file.attachmentOrder = this.state.files.length + (index + 1);
+    let data = {
+      leaId: this.props.userId,
+      name: file.name,
+      description: file.description,
+      itemType: file.type,
+      attachmentOrder: file.attachmentOrder,
+      size: file.size,
+      type: "lea",
+    };
+    this.leaApiService
+      .uploadFileForLEA(data)
+      .then((response: any) => {
+        let request = new FormData();
+        request.append("file", file);
+        request.append("databaseId", response.data.id);
+        request.append("controlNumber", this.props.userId);
+        request.append("type", "Lea");
+        this.commonAPIService
+          .uploadFile(request)
+          .then((resp: any) => {
+            file.id = response.data.id;
+            file.virusScanStatus = response.data.virusScanStatus;
+            file.uri = response.data.uri;
+            file.tempName = file.name;
+            let files = this.state.files.concat(file);
+            this.setState({ files });
+          })
+          .catch((error: any) => {
+            let deleteAPIPayload = [response.data.id];
+            this.leaApiService
+              .deleteFilesForLEA(deleteAPIPayload)
+              .then((response) => {
+                console.log("File Upload Failed.");
+              });
+            this.updateAlert({
+              error: ["Unable to upload the file. Please try again."],
+              type: "danger",
+              errorType: "upload",
+            });
+          });
+      })
+      .catch((error: any) => {
+        this.updateAlert({
+          error: ["Unable to upload the file. Please try again."],
+          type: "danger",
+          errorType: "upload",
+        });
+      })
+      .finally(() => {
+        let loadingRows = this.state.loadingRows.filter(
+          (row) => row.key !== index + "-loading-row"
+        );
+        this.setState({
+          loadingRows: loadingRows,
+        });
+      });
+  };
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.files !== this.state.files) {
+      this.setState({ files: nextProps.files });
+    }
+  }
+  onUpClick = (clickedFile, aboveFile) => {
+    let clickedAttachmentOrder = clickedFile.attachmentOrder;
+    let apiPayload = [
+      { id: clickedFile.id, attachmentOrder: clickedAttachmentOrder - 1 },
+      { id: aboveFile.id, attachmentOrder: clickedAttachmentOrder },
+    ];
+    this.leaApiService
+      .updateFilesForLEA(apiPayload)
+      .then((response) => {
+        let updatedFiles = response.data;
+        clickedFile.attachmentOrder = updatedFiles.find(
+          (f) => f.uploadItemId === clickedFile.id
+        ).uploadItem.attachmentOrder;
+        aboveFile.attachmentOrder = updatedFiles.find(
+          (f) => f.uploadItemId === aboveFile.id
+        ).uploadItem.attachmentOrder;
+        let files = this.state.files;
+        files.concat(clickedFile);
+        files.concat(aboveFile);
+        this.setState({ files });
+      })
+      .catch((error) => {
+        this.updateAlert({
+          error: ["Unable to rearrange file order. Please try again."],
+          type: "danger",
+        });
+      });
+  };
+  onDownClick = (clickedFile, belowFile) => {
+    let clickedAttachmentOrder = clickedFile.attachmentOrder;
+    let apiPayload = [
+      { id: clickedFile.id, attachmentOrder: clickedAttachmentOrder + 1 },
+      { id: belowFile.id, attachmentOrder: clickedAttachmentOrder },
+    ];
+    this.leaApiService
+      .updateFilesForLEA(apiPayload)
+      .then((response) => {
+        let updatedFiles = response.data;
+        clickedFile.attachmentOrder = updatedFiles.find(
+          (f) => f.uploadItemId === clickedFile.id
+        ).uploadItem.attachmentOrder;
+        belowFile.attachmentOrder = updatedFiles.find(
+          (f) => f.uploadItemId === belowFile.id
+        ).uploadItem.attachmentOrder;
+        let files = this.state.files;
+        files.concat(clickedFile);
+        files.concat(belowFile);
+        this.setState({ files });
+      })
+      .catch((error) => {
+        this.updateAlert({
+          error: ["Unable to rearrange file order. Please try again."],
+          type: "danger",
+        });
+      });
+  };
+
+  onClick = (event) => {};
+
+  handleFileDelete = async (newFileList, filesToDelete) => {
+    let deleteAPIPayload = [];
+    filesToDelete.forEach((file) => deleteAPIPayload.push(file.id));
+    this.leaApiService
+      .deleteFilesForLEA(deleteAPIPayload)
+      .then((response) => {
+        if (newFileList.length !== 0) {
+          let updateAPIPayload = [];
+          newFileList.forEach((file, index) => {
+            file.attachmentOrder = index + 1;
+            let updateItem = {
+              id: file.id,
+              attachmentOrder: file.attachmentOrder,
+            };
+            updateAPIPayload.push(updateItem);
+          });
+          this.leaApiService
+            .updateFilesForLEA(updateAPIPayload)
+            .then((response) => {
+              this.setState({
+                files: newFileList,
+                filesSelectedToDelete: [],
+                checkedItems: new Map(),
+                editItems: new Map(),
+              });
+              this.updateAlert({
+                error: [],
+                type: "",
+              });
+              this.props.updateFilesList();
+            })
+            .catch((error) => {
+              this.updateAlert({
+                error: ["Unable to delete file(s). Please try again."],
+                type: "danger",
+              });
+            });
+        } else {
+          this.setState({
+            files: newFileList,
+            filesSelectedToDelete: [],
+            checkedItems: new Map(),
+            editItems: new Map(),
+          });
+          this.props.updateFilesList();
+        }
+      })
+      .catch((error) => {
+        this.updateAlert({
+          error: ["Unable to delete the file. Please try again"],
+          type: "danger",
+        });
+      });
+  };
+
+  setFlagToDelete = (event) => {
+    const item = event.target.name;
+    const isChecked = event.target.checked;
+    this.setState((prevState) => ({
+      checkedItems: prevState.checkedItems.set(item, isChecked),
+    }));
+  };
+
+  editFileName = (file) => {
+    const item = file.id;
+    let newEditItem = new Map();
+    this.setState({
+      editItems: newEditItem.set(item, true),
+    });
+  };
+
+  downloadFile = (file) => {
+    let url =
+      Environment.COMMON_URL +
+      "/api/v1/downloadFile?path=" +
+      file.uri +
+      "&fileType=" +
+      file.itemType +
+      "&fileName=" +
+      file.name;
+    window.location.href = url;
+  };
+
+  saveIconClick = async (fileId, tempName) => {
+    const { files } = this.state;
+    let fileToEdit = files.find((f) => f.id === fileId);
+    if (fileToEdit) {
+      let extnIndex = fileToEdit.name.lastIndexOf(".");
+      if (extnIndex !== -1) {
+        let extn = fileToEdit.name.substring(extnIndex, fileToEdit.name.length);
+        fileToEdit.name = tempName + extn;
+      }
+    }
+
+    let data = {
+      id: fileToEdit.id,
+      name: fileToEdit.name,
+    };
+    this.leaApiService
+      .updateFilesForLEA([data])
+      .then((response) => {
+        let updatedFile = response.data.find(
+          (f) => f.uploadItemId === fileToEdit.id
+        );
+
+        fileToEdit.name = updatedFile.uploadItem.name;
+        this.setState({
+          files: files,
+          editItems: new Map(),
+        });
+      })
+      .catch((error) => {
+        this.updateAlert({
+          error: ["Unable to rename the file. Please try again."],
+          type: "danger",
+        });
+      });
+    this.resetEditFileName();
+  };
+
+  resetEditFileName = () => {
+    this.setState({
+      editItems: new Map(),
+    });
+  };
+  updateAlert = (message) => {
+    this.props.updateAlert(message);
+  };
+  setLoadingRows = (loadingRows) => {
+    this.setState({ loadingRows: loadingRows });
+  };
+
+  render() {
+    return (
+      <>
+        <PPMSDropZone
+          files={this.state.files}
+          filesLimit={this.props.filesLimit}
+          updateAlert={this.updateAlert}
+          type={this.state.type}
+          triggerDrop={this.props.triggerDrop}
+          title="Documents"
+          onDrop={this.onDrop}
+          checkboxClick={this.setFlagToDelete}
+          editIconClick={this.editFileName}
+          downloadFile={this.downloadFile}
+          src={this.state.src}
+          rotateSrc={this.state.rotateSrc}
+          loadingImage={this.state.loadingImage}
+          handleFileDelete={this.handleFileDelete}
+          onUpClick={this.onUpClick}
+          onDownClick={this.onDownClick}
+          onClick={this.onClick}
+          saveIconClick={this.saveIconClick}
+          resetEditFileName={this.resetEditFileName}
+          checkedItems={this.state.checkedItems}
+          editItems={this.state.editItems}
+          maxFileSize={this.props.maxFileSize}
+          loadingRows={this.state.loadingRows}
+          documentTypes={this.state.documentTypes}
+          setLoadingRows={this.setLoadingRows}
+          documentTypesChange={this.props.documentTypesChange}
+          disabledAttachmentList={this.props.disabledAttachmentList}
+          customInfoTip={leaDocumentInfoTip}
+          downloadDisabled={this.props.downloadDisabled}
+          actionDisabled={this.props.actionDisabled}
+        />
+      </>
+    );
+  }
+}
